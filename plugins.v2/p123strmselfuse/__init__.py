@@ -394,7 +394,8 @@ class ShareStrmHelper:
 
         for item in items:
             if item.get("is_dir"):
-                child_rel = rel_prefix + item.get("relpath", "")
+                name = item.get("relpath", "").rstrip("/") + "/"
+                child_rel = rel_prefix + name
                 item["relprefix"] = child_rel
                 yield from self._share_recursive(
                     share_code=share_code,
@@ -404,11 +405,8 @@ class ShareStrmHelper:
                 )
             else:
                 full_rel = rel_prefix + item.get("relpath", "")
-                yield {
-                    "is_dir": False,
-                    "relprefix": full_rel,
-                    "raw": item.get("raw", item),
-                }
+                item["relprefix"] = full_rel
+                yield item
 
     def get_share_list_creata_strm(
         self,
@@ -524,7 +522,7 @@ class P123StrmSelfuse(_PluginBase):
     # 插件图标
     plugin_icon = "https://raw.githubusercontent.com/bsjonline/MoviePilot-Plugins/main/icons/P123Disk.png"
     # 插件版本
-    plugin_version = "1.2.3"
+    plugin_version = "1.2.4"
     # 插件作者
     plugin_author = "bsjonline"
     # 作者主页
