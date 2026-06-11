@@ -475,11 +475,11 @@ class P123StrmSelfuse(_PluginBase):
     # 插件描述
     plugin_desc = "123STRM生成一条龙服务"
     # 插件图标
-    plugin_icon = "https://raw.githubusercontent.com/DDSRem-Dev/MoviePilot-Plugins/main/icons/P123Disk.png"
+    plugin_icon = "https://raw.githubusercontent.com/bsjonline/MoviePilot-Plugins/main/icons/P123Disk.png"
     # 插件版本
     plugin_version = "1.1.3"
     # 插件作者
-    plugin_author = "DDSRem"
+    plugin_author = "bsjonline"
     # 作者主页
     author_url = "https://github.com/DDSRem"
     # 插件配置项ID前缀
