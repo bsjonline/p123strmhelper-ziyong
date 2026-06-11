@@ -3,8 +3,10 @@
 支持全量同步、分享生成 STRM、自动整理、自动下载 mediainfo、空间清理等。
 
 ## 更新记录
-
-- v1.1.7：还原成 `share_iterdir(max_depth=-1)` 并用 `relpath` 保证网盘子目录层级
+- v1.2.1：修复 `Generator` 未导入导致加载失败
+- v1.2.0：按子目录递归一层一层拉取分享文件避免 1999 条截断；新增 _share_recursive 生成器，以 max_depth=1 逐层枚举并手动拼接 rel_prefix 保持完整相对路径
+- v1.1.8：回滚 share_iterdir(max_depth=-1) 翻页递归方案，恢复上游 get_share_list_creata_strm；保持 relpath 目录层级
+- v1.1.7：还原 share_iterdir max_depth=-1 单层遍历并使用 relpath 保持网盘子目录层级
 - v1.1.6：修复分享递归返回路径未转 Path 导致 suffix 报错
 - v1.1.5：修复 share 递归生成 STRM 时丢失目录结构的问题
 - v1.1.4：统一类名与目录名为 P123StrmSelfuse/p123strmselfuse；补全缺失依赖；package.v2.json 增加 system_version>=2.13.0

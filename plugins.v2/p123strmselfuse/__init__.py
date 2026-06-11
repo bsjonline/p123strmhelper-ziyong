@@ -1,7 +1,7 @@
 import ast
 import time
 from datetime import datetime, timedelta
-from typing import Any, List, Dict, Tuple, Optional
+from typing import Any, List, Dict, Tuple, Optional, Generator
 from pathlib import Path
 
 import pytz
@@ -525,7 +525,7 @@ class P123StrmSelfuse(_PluginBase):
     # 插件图标
     plugin_icon = "https://raw.githubusercontent.com/bsjonline/MoviePilot-Plugins/main/icons/P123Disk.png"
     # 插件版本
-    plugin_version = "1.2.0"
+    plugin_version = "1.2.1"
     # 插件作者
     plugin_author = "bsjonline"
     # 作者主页

@@ -3,7 +3,7 @@
     "name": "123STRM",
     "description": "123云盘STRM生成一条龙服务",
     "labels": "云盘",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "release": false,
     "icon": "https://raw.githubusercontent.com/bsjonline/MoviePilot-Plugins/main/icons/P123Disk.png",
     "author": "bsjonline",
@@ -32,7 +32,8 @@
       "v1.0.2": "修复部分情况下全量和分享无法使用",
       "v1.0.1": "优化302跳转速度",
       "v1.0.0": "发布，前置依赖123云盘储存插件",
-      "v1.2.0": "按子目录递归一层一层拉取分享文件避免 1999 条截断；新增 _share_recursive 生成器，以 max_depth=1 逐层枚举并手动拼接 rel_prefix 保持完整相对路径"
+      "v1.2.0": "按子目录递归一层一层拉取分享文件避免 1999 条截断；新增 _share_recursive 生成器，以 max_depth=1 逐层枚举并手动拼接 rel_prefix 保持完整相对路径",
+      "v1.2.1": "修复 `Generator` 未导入导致加载失败"
     },
     "system_version": ">=2.13.0"
   }
