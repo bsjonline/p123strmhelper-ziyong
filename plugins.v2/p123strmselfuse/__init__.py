@@ -395,6 +395,7 @@ class ShareStrmHelper:
         for item in items:
             if item.get("is_dir"):
                 child_rel = rel_prefix + item.get("relpath", "")
+                item["relprefix"] = child_rel
                 yield from self._share_recursive(
                     share_code=share_code,
                     share_pwd=share_pwd,
@@ -404,8 +405,8 @@ class ShareStrmHelper:
             else:
                 full_rel = rel_prefix + item.get("relpath", "")
                 yield {
-                    "file_path": "/" + full_rel,
-                    "relpath": full_rel,
+                    "is_dir": False,
+                    "relprefix": full_rel,
                     "raw": item.get("raw", item),
                 }
 
@@ -427,7 +428,7 @@ class ShareStrmHelper:
         self.download_mediainfo_list = []
 
         for item in self._share_recursive(share_code, share_pwd):
-            file_path = "/" + item["relpath"]
+            file_path = "/" + item["relprefix"]
             if not self.has_prefix(file_path, self.share_media_path):
                 logger.debug(
                     "【分享STRM生成】此文件不在用户设置分享目录下，跳过网盘路径: %s",
@@ -523,7 +524,7 @@ class P123StrmSelfuse(_PluginBase):
     # 插件图标
     plugin_icon = "https://raw.githubusercontent.com/bsjonline/MoviePilot-Plugins/main/icons/P123Disk.png"
     # 插件版本
-    plugin_version = "1.2.1"
+    plugin_version = "1.2.3"
     # 插件作者
     plugin_author = "bsjonline"
     # 作者主页
