@@ -426,55 +426,6 @@ class ShareStrmHelper:
                 "new_file_path": new_file_path,
                 "raw": raw,
             }
-            try:
-                if self.auto_download_mediainfo:
-                    if file_path.suffix in self.download_mediaext:
-                        self.download_mediainfo_list.append(
-                            [
-                                {
-                                    "Etag": raw.get("Etag") or raw.get("md5"),
-                                    "FileID": int(raw.get("FileId") or raw.get("id") or 0),
-                                    "FileName": raw.get("FileName") or raw.get("name"),
-                                    "S3KeyFlag": raw.get("S3KeyFlag") or raw.get("s3keyflag"),
-                                    "Size": int(raw.get("Size") or raw.get("size") or 0),
-                                },
-                                str(file_path),
-                            ]
-                        )
-                        continue
-
-                if file_path.suffix not in self.rmt_mediaext:
-                    logger.warn(
-                        "【分享STRM生成】文件后缀不匹配，跳过网盘路径: %s",
-                        str(file_path).replace(str(self.local_media_path), "", 1),
-                    )
-                    continue
-
-                new_file_path.parent.mkdir(parents=True, exist_ok=True)
-
-                strm_url = (
-                    f"{self.server_address}/api/v1/plugin/P123StrmSelfuse/redirect_url"
-                    f"?apikey={settings.API_TOKEN}&name={raw.get('FileName') or raw.get('name')}"
-                    f"&size={int(raw.get('Size') or raw.get('size') or 0)}"
-                    f"&md5={raw.get('Etag') or raw.get('md5')}"
-                    f"&s3_key_flag={raw.get('S3KeyFlag') or raw.get('s3keyflag')}"
-                )
-
-                with open(new_file_path, "w", encoding="utf-8") as file:
-                    file.write(strm_url)
-                self.strm_count += 1
-                logger.info(
-                    "【分享STRM生成】生成 STRM 文件成功: %s", str(new_file_path)
-                )
-            except Exception as e:
-                logger.error(
-                    "【分享STRM生成】生成 STRM 文件失败: %s  %s",
-                    str(new_file_path),
-                    e,
-                )
-                self.strm_fail_count += 1
-                self.strm_fail_dict[str(new_file_path)] = str(e)
-                continue
 
     def get_share_list_creata_strm(
         self,
