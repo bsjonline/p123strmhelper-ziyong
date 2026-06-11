@@ -499,10 +499,10 @@ class ShareStrmHelper:
             parent_id=parent_id,
             prefix="",
         ):
-            local_file_path = item["file_path"]
-            file_target_dir = item["file_target_dir"]
+            local_file_path = Path(item["file_path"])
+            file_target_dir = Path(item["file_target_dir"])
             file_name = item["file_name"]
-            new_file_path = item["new_file_path"]
+            new_file_path = Path(item["new_file_path"])
             raw = item["raw"]
             try:
                 if self.auto_download_mediainfo:
@@ -586,7 +586,7 @@ class P123StrmSelfuse(_PluginBase):
     # 插件图标
     plugin_icon = "https://raw.githubusercontent.com/bsjonline/MoviePilot-Plugins/main/icons/P123Disk.png"
     # 插件版本
-    plugin_version = "1.1.5"
+    plugin_version = "1.1.6"
     # 插件作者
     plugin_author = "bsjonline"
     # 作者主页
