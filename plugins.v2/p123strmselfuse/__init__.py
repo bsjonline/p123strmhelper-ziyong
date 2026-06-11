@@ -427,8 +427,6 @@ class ShareStrmHelper:
         self.download_mediainfo_list = []
 
         for item in self._share_recursive(share_code, share_pwd):
-            if item["is_dir"]:
-                continue
             file_path = "/" + item["relpath"]
             if not self.has_prefix(file_path, self.share_media_path):
                 logger.debug(
