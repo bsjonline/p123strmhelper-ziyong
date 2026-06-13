@@ -466,7 +466,6 @@ class ShareStrmHelper:
                     continue
 
                 new_file_path.parent.mkdir(parents=True, exist_ok=True)
-
                 strm_url = (
                     f"{self.server_address}/api/v1/plugin/P123StrmSelfuse/redirect_url"
                     f"?apikey={settings.API_TOKEN}&name={item['FileName']}"
@@ -495,6 +494,28 @@ class ShareStrmHelper:
                 downloads_list=self.download_mediainfo_list
             )
         )
+        # 失败重试：最多2轮，仅重试第0轮失败的项
+        for retry_round in range(2):
+            if not self.mediainfo_fail_dict:
+                break
+            fail_paths = set(self.mediainfo_fail_dict)
+            retry_list = [
+                item for item in self.download_mediainfo_list
+                if item and item[1] in fail_paths
+            ]
+            if not retry_list:
+                break
+            logger.info(
+                "【分享STRM生成】第 %d 轮失败重试开始，共 %d 个文件",
+                retry_round + 1, len(retry_list),
+            )
+            time.sleep(3)
+            extra_count, extra_fail_count, extra_fail_list = (
+                self._mediainfodownloader.auto_downloader(downloads_list=retry_list)
+            )
+            self.mediainfo_count += extra_count
+            self.mediainfo_fail_count = extra_fail_count
+            self.mediainfo_fail_dict = extra_fail_list
         if self.strm_fail_dict:
             for path, error in self.strm_fail_dict.items():
                 logger.warn(f"【分享STRM生成】{path} 生成错误原因: {error}")
@@ -522,7 +543,7 @@ class P123StrmSelfuse(_PluginBase):
     # 插件图标
     plugin_icon = "https://raw.githubusercontent.com/bsjonline/MoviePilot-Plugins/main/icons/P123Disk.png"
     # 插件版本
-    plugin_version = "1.2.4"
+    plugin_version = "1.2.5"
     # 插件作者
     plugin_author = "bsjonline"
     # 作者主页
